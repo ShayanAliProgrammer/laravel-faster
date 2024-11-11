@@ -11,6 +11,8 @@ class Category extends Model
     use HasFactory;
 
     protected $primaryKey = "slug";
+    public $incrementing = false; // Prevents auto-incrementing
+    protected $keyType = 'string'; // Specifies primary key as string
 
     protected $fillable = [
         'name',

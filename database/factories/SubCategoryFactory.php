@@ -20,7 +20,7 @@ class SubCategoryFactory extends Factory
         $name = fake()->text(50);
 
         // Ensure there's an existing category to reference
-        $category = Category::inRandomOrder()->first() ?? Category::factory()->create();
+        $category = Category::inRandomOrder()->first(['slug']) ?? Category::factory()->create();
 
         return [
             'name' => $name,
