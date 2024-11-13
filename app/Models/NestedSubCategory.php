@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubCategory extends Model
+class NestedSubCategory extends Model
 {
-    /** @use HasFactory<\Database\Factories\SubCategoryFactory> */
+    /** @use HasFactory<\Database\Factories\NestedSubCategoryFactory> */
     use HasFactory;
 
     protected $primaryKey = "slug";
@@ -18,14 +18,10 @@ class SubCategory extends Model
         'name',
         'slug',
         'image',
-        'category_slug'
+        'sub_category_slug'
     ];
 
-    public function category() {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function nested_sub_categories() {
-        return $this->hasMany(NestedSubCategory::class);
+    public function sub_category() {
+        return $this->belongsTo(SubCategory::class);
     }
 }

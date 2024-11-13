@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,25 +8,38 @@
     <title>Document</title>
 
     @php
-        $manifest = json_decode(file_get_contents(__DIR__ . '/../../../public/build/manifest.json'), true);
-        $app_css = file_get_contents(__DIR__ . '/../../../public/build/' . $manifest['resources/css/app.css']['file']);
-        $app_js = file_get_contents(__DIR__ . '/../../../public/build/' . $manifest['resources/js/app.js']['file']);
+    $manifest = json_decode(file_get_contents(__DIR__ . '/../../../public/build/manifest.json'), true);
+    $app_css = file_get_contents(__DIR__ . '/../../../public/build/' . $manifest['resources/css/app.css']['file']);
     @endphp
 
+    @persist('styles')
     <style>
-        {!! $app_css !!}
+        {!! $app_css  !!}
     </style>
+    @endpersist('styles')
 
-    <script defer>{!! $app_js !!}</script>
+    @vite(['resources/js/app.js'])
 
     @livewireStyles
+
+    @stack('head')
 </head>
+
 <body>
 
     <x-navbar />
 
-    {{$slot}}
+    <div class="gap-3 lg:grid lg:grid-cols-4">
+        @persist('sidebar')
+        <livewire:sidebar />
+        @endpersist
+
+        <main class="py-3 lg:col-span-3">
+            {{$slot}}
+        </main>
+    </div>
 
     @livewireScripts
 </body>
+
 </html>

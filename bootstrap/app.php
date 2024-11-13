@@ -18,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
             // Middleware to minify Blade
             \Fahlisaputra\Minify\Middleware\MinifyHtml::class,
         ]);
+
+        $middleware->alias([
+            'route_caching' => App\Http\Middleware\RouteCaching::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
